@@ -91,7 +91,7 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/aricloverALT/sdks.git
           mkdir -p $THEOS/sdks
-          mv sdks/iPhoneOS.sdk/iPhoneOS18.0.sdk $THEOS/sdks/
+          mv iPhoneOS.sdk/iPhoneOS18.0.sdk $THEOS/sdks/
         env:
           THEOS: ${{ github.workspace }}/theos
 
