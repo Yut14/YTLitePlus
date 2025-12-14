@@ -96,7 +96,7 @@ jobs:
           git sparse-checkout set --no-cone iPhoneOS18.sdk
           git checkout
           mkdir -p $THEOS/sdks
-          mv iPhoneOS18.sdk $THEOS/sdks/
+          mv iPhoneOS18.sdk/iPhoneOS18.sdk $THEOS/sdks/
         env:
           THEOS: ${{ github.workspace }}/theos
 
