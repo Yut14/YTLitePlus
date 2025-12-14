@@ -90,11 +90,8 @@ jobs:
       - name: Download iOS SDK
         run: |
           git clone --depth=1 https://github.com/aricloverALT/sdks.git
-          cd sdks
-          git sparse-checkout init --cone
-          git sparse-checkout set iPhoneOS18.sdk
           mkdir -p $THEOS/sdks
-          mv iPhoneOS18.sdk $THEOS/sdks/
+          mv sdks/iPhoneOS.sdk/iPhoneOS18.0.sdk $THEOS/sdks/
         env:
           THEOS: ${{ github.workspace }}/theos
 
