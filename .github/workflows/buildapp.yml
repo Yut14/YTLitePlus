@@ -91,7 +91,17 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/aricloverALT/sdks.git
           mkdir -p $THEOS/sdks
-          mv iPhoneOS.sdk/iPhoneOS18.0.sdk $THEOS/sdks/
+      
+          SDK_PATH=$(find sdks -type d -name "iPhoneOS*.sdk" | head -n 1)
+      
+          echo "Found SDK at: $SDK_PATH"
+      
+          if [ -z "$SDK_PATH" ]; then
+            echo "ERROR: iPhoneOS SDK not found"
+            exit 1
+          fi
+      
+          mv "$SDK_PATH" $THEOS/sdks/
         env:
           THEOS: ${{ github.workspace }}/theos
 
