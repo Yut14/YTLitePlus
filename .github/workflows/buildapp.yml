@@ -88,15 +88,13 @@ jobs:
           restore-keys: ${{ env.cache-name }}
 
       - name: Download iOS SDK
-        if: steps.SDK.outputs.cache-hit != 'true'
         run: |
-          # Only download the specific SDK version
-          git clone -n --depth=1 --filter=tree:0 https://github.com/aricloverALT/sdks/
+          git clone --depth=1 https://github.com/aricloverALT/sdks.git
           cd sdks
-          git sparse-checkout set --no-cone iPhoneOS18.sdk
-          git checkout
+          git sparse-checkout init --cone
+          git sparse-checkout set iPhoneOS18.sdk
           mkdir -p $THEOS/sdks
-          mv iPhoneOS18.sdk/iPhoneOS18.sdk $THEOS/sdks/
+          mv iPhoneOS18.sdk $THEOS/sdks/
         env:
           THEOS: ${{ github.workspace }}/theos
 
