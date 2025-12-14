@@ -86,32 +86,24 @@ jobs:
           path: theos/sdks/
           key: ${{ env.cache-name }}
           restore-keys: ${{ env.cache-name }}
-
       - name: Download iOS SDK
         run: |
           git clone --depth=1 https://github.com/aricloverALT/sdks.git
           mkdir -p $THEOS/sdks
       
-          SDK_PATH=$(find sdks -type d -name "iPhoneOS*.sdk" | head -n 1)
+          SDK_PATH=$(find "$PWD/sdks" -type d -name "iPhoneOS*.sdk" | head -n 1)
       
           if [ -z "$SDK_PATH" ]; then
             echo "ERROR: iPhoneOS SDK not found"
             exit 1
           fi
-      
-          SDK_NAME=$(basename "$SDK_PATH")
-          mv "$SDK_PATH" $THEOS/sdks/
-      
-          echo "SDK_NAME=$SDK_NAME" >> $GITHUB_ENV
       
           echo "Found SDK at: $SDK_PATH"
       
-          if [ -z "$SDK_PATH" ]; then
-            echo "ERROR: iPhoneOS SDK not found"
-            exit 1
-          fi
+          SDK_NAME=$(basename "$SDK_PATH")
+          mv "$SDK_PATH" "$THEOS/sdks/"
       
-          mv "$SDK_PATH" $THEOS/sdks/
+          echo "SDK_NAME=$SDK_NAME" >> $GITHUB_ENV
         env:
           THEOS: ${{ github.workspace }}/theos
 
